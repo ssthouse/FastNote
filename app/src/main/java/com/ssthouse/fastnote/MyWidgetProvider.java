@@ -6,17 +6,12 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.RemoteViews;
-
-import java.util.TimerTask;
 
 /**
  * Created by ssthouse on 2015/12/9.
  */
 public class MyWidgetProvider extends AppWidgetProvider {
-
-    private static final String TAG = "ssthouse";
 
     /**
      * 部件是有自己定义的更新的时间间隔的----这是定时调用的一个方法
@@ -42,44 +37,26 @@ public class MyWidgetProvider extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
-        if (null == intent.getAction() ||
-                !intent.getAction().equalsIgnoreCase("com.ssthouse.update")) {
+        if (null == intent.getAction()) {
+            return;
+        }
+        if (!intent.getAction().equalsIgnoreCase("com.ssthouse.update")
+                && !intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
             return;
         }
         ComponentName componentName = new ComponentName(context, MyWidgetProvider.class);
-        String content = PreferenceHelper.getInstace(context).getNote();
+        String content = PreferenceHelper.getInstance(context).getNote();
         int[] widgetIds = AppWidgetManager.getInstance(context).getAppWidgetIds(componentName);
         int num = widgetIds.length;
         for (int i = 0; i < num; i++) {
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_provider);
             remoteViews.setTextViewText(R.id.id_tv_main, content);
+            remoteViews.setTextColor(R.id.id_tv_main,PreferenceHelper.getInstance(context).getColor());
             remoteViews.setOnClickPendingIntent(R.id.id_ll_main,
                     PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class),
                             PendingIntent.FLAG_CANCEL_CURRENT));
             AppWidgetManager.getInstance(context).updateAppWidget(componentName, remoteViews);
         }
-        Log.e(TAG, "我收到了消息!");
-    }
-
-    private class MyTime extends TimerTask {
-        RemoteViews remoteViews;
-        AppWidgetManager appWidgetManager;
-        ComponentName thisWidget;
-        Context mContext;
-
-        public MyTime(Context context, AppWidgetManager appWidgetManager) {
-            this.appWidgetManager = appWidgetManager;
-            remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_provider);
-            mContext = context;
-            thisWidget = new ComponentName(context, MyWidgetProvider.class);
-        }
-
-        @Override
-        public void run() {
-            Log.e(TAG, "i am running");
-            remoteViews.setTextViewText(R.id.id_tv_main,
-                    PreferenceHelper.getInstace(mContext).getNote());
-            appWidgetManager.updateAppWidget(thisWidget, remoteViews);
-        }
+        //Log.e(TAG, "我收到了消息!");
     }
 }
