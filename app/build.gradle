@@ -29,5 +29,6 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.6.0'
     //颜色拾取器
     compile 'com.github.QuadFlask:colorpicker:0.0.9'
-
+    //log
+    compile 'com.jakewharton.timber:timber:4.3.0'
 }
