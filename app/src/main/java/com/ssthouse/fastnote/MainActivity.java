@@ -7,21 +7,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
+import com.ssthouse.fastnote.ActivityTest.TestAty1;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
 
     private EditText etMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         if (PreferenceHelper.getInstance(this).isFistIn()) {
             PreferenceHelper.getInstance(this).setIsFistIn(false);
@@ -71,7 +77,12 @@ public class MainActivity extends AppCompatActivity {
                 //TODO---选择颜色
                 pickColor();
                 break;
-
+            case R.id.id_action_test_intent_service:
+                break;
+            case R.id.id_action_test_activity:
+                Intent testActivityIntent = new Intent(MainActivity.this, TestAty1.class);
+                startActivity(testActivityIntent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

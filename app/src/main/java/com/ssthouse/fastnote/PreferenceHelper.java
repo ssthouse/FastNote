@@ -24,7 +24,7 @@ public class PreferenceHelper {
         sharedPreferences = context.getSharedPreferences("preference", Context.MODE_PRIVATE);
     }
 
-    public static PreferenceHelper getInstance(Context context) {
+    public synchronized static PreferenceHelper getInstance(Context context) {
         if (preferenceHelper == null) {
             preferenceHelper = new PreferenceHelper(context);
         }

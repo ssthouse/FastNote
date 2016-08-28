@@ -6,4 +6,6 @@ package com.ssthouse.fastnote;
 public class Constant {
 
     public static final String ACTION = "com.ssthouse.update";
+
+    public static final String INTENT_NAME = "com.ssthouse.fastnote.IntentServceDemo";
 }
