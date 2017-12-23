@@ -59,8 +59,8 @@ public class PreferenceHelper {
      * 获取颜色
      */
     public int getColor() {
-        Log.e(TAG, "我现在的颜色是:"+Integer.toHexString(sharedPreferences.getInt(KEY_COLOR, 0xffffff)));
-        return sharedPreferences.getInt(KEY_COLOR, 0xffffff);
+        Log.e(TAG, "我现在的颜色是:"+Integer.toHexString(sharedPreferences.getInt(KEY_COLOR, 0xffffffff)));
+        return sharedPreferences.getInt(KEY_COLOR, 0xffffffff);
     }
 
     public void setIsFistIn(boolean isFistIn) {

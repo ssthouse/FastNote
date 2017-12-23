@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
             PreferenceHelper.getInstance(this).saveNote("begin fast note");
         }
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_note);
         initView();
     }
 
